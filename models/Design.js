@@ -4,8 +4,21 @@ const DesignSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Please provide title'],
-        minlength: 3,
-        maxlength: 50,
+        maxlength: [100, 'not more than 100 characters'],
+      },
+      category: {
+        type: String,
+        required: [true, 'Please provide design category'],
+      },
+      tags: {
+        type: String,
+        maxlength: [20, 'not more than 20 characters'],
+
+
+      },
+      free: {
+        type: Boolean,
+        default: true,
       },
 
 

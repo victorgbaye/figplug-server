@@ -12,3 +12,5 @@ const updateDesign = async(req, res) =>{
 const deleteDesign = async(req, res) =>{
     res.send('get single designs')
 }
+
+module.exports = {getAllDesign, getSingleDesign, updateDesign, deleteDesign}
