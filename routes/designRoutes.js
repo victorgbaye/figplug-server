@@ -1,12 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-const {register, login, logout} = require('../controllers/authController');
+const {createDesign, getAllDesign, getSingleDesign, updateDesign, deleteDesign} = require('../controllers/designController');
 
 
-router.post('/register', register);
-router.post('/login', login);
-router.get('/logout', logout);
+router
+  .route('/')
+  .post(createDesign)
+  .get(getAllDesign);
 
+
+router
+  .route('/:id')
+  .get(getSingleDesign)
+  .patch(updateDesign)
+  .delete(deleteDesign);
 
 module.exports = router;
