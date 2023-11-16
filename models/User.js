@@ -34,6 +34,10 @@ const UserSchema = new mongoose.Schema({
         enum: ['admin', 'user'],
         default: 'user',
       },
+      isPremium: {
+        type: Boolean,
+        default: false,
+      },
 })
 
 UserSchema.pre('save', async function () {

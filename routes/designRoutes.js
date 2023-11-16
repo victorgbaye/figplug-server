@@ -1,19 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
-const {createDesign, getAllDesign, getSingleDesign, updateDesign, deleteDesign} = require('../controllers/designController');
+const {
+    authenticateUser,
+    authorizePermissions,
+  } = require('../middleware/authentication');
+
+const {createDesign, getAllDesign, getSingleDesign, updateDesign, deleteDesign, uploadImage} = require('../controllers/designController');
 
 
 router
   .route('/')
-  .post(createDesign)
+  .post([authenticateUser, authorizePermissions('admin')],createDesign)
   .get(getAllDesign);
 
+
+  router
+  .route('/uploadImage')
+  .post([authenticateUser, authorizePermissions('admin')], uploadImage);
 
 router
   .route('/:id')
   .get(getSingleDesign)
-  .patch(updateDesign)
-  .delete(deleteDesign);
+  .patch([authenticateUser, authorizePermissions('admin')],updateDesign)
+  .delete([authenticateUser, authorizePermissions('admin')],deleteDesign);
 
 module.exports = router;

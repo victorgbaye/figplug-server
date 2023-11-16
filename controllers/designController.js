@@ -1,5 +1,11 @@
+const Design  = require('../models/Design')
+const { StatusCodes } = require('http-status-codes');
+const customError = require('../errors')
+
 const createDesign = async(req, res) =>{
-    res.send('create design')
+    req.body.user = req.user.userId;
+    const design  = await Design.create(req.body)
+    res.status(StatusCodes.CREATED).json({design})
 }
 
 const getAllDesign = async(req, res) =>{
@@ -11,10 +17,13 @@ const getSingleDesign = async(req, res) =>{
 }
 
 const updateDesign = async(req, res) =>{
-    res.send('get single designs')
+    res.send('update design')
 }
 const deleteDesign = async(req, res) =>{
-    res.send('get single designs')
+    res.send('Delete design')
+}
+const uploadImage = async(req, res) => {
+    res,send('upload image')
 }
 
-module.exports = {createDesign, getAllDesign, getSingleDesign, updateDesign, deleteDesign}
+module.exports = {createDesign, getAllDesign, getSingleDesign, updateDesign, deleteDesign, uploadImage}
