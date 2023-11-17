@@ -6,12 +6,16 @@ const DesignSchema = new mongoose.Schema({
         required: [true, 'Please provide title'],
         maxlength: [100, 'not more than 100 characters'],
       },
+      figmaLink: {
+        type: String,
+        required: [true, 'Please provide a Figma link'],
+    },
       category: {
         type: String,
         required: [true, 'Please provide design category'],
       },
       tags: {
-        type: String,
+        type: [String],
         maxlength: [20, 'not more than 20 characters'],
       },
       free: {
