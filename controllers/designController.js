@@ -9,11 +9,19 @@ const createDesign = async(req, res) =>{
 }
 
 const getAllDesign = async(req, res) =>{
-    res.send('get all designs')
+    const design = await Design.find({})
+    
+    res.status(StatusCodes.OK).json({design, count: design.length})
 }
 
 const getSingleDesign = async(req, res) =>{
-    res.send('get single designs')
+    const {id: designID} = req.params
+    const design = await Design.findOne({_id: designID})
+    if(!design){
+        throw new customError.NotFoundError(`No design with id: ${designID}`)
+    }
+    res.status(StatusCodes.OK).json({design})
+
 }
 
 const updateDesign = async(req, res) =>{
