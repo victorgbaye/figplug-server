@@ -10,7 +10,7 @@ const createDesign = async(req, res) =>{
 
 const getAllDesign = async(req, res) =>{
     const design = await Design.find({})
-    
+
     res.status(StatusCodes.OK).json({design, count: design.length})
 }
 
@@ -25,10 +25,30 @@ const getSingleDesign = async(req, res) =>{
 }
 
 const updateDesign = async(req, res) =>{
-    res.send('update design')
+    const { id: designID } = req.params;
+
+    const design = await Design.findOneAndUpdate({ _id: designID }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+  
+    if (!design) {
+      throw new customError.NotFoundError(`No design with id : ${productId}`);
+    }
+  
+    res.status(StatusCodes.OK).json({ design });
 }
 const deleteDesign = async(req, res) =>{
-    res.send('Delete design')
+     const { id: designID } = req.params;
+
+  const design = await Design.findOne({ _id: designID });
+
+  if (!design) {
+    throw new customError.NotFoundError(`No design with id : ${designID}`);
+  }
+
+  await design.remove();
+  res.status(StatusCodes.OK).json({ msg: 'Success! design removed.' });
 }
 const uploadImage = async(req, res) => {
     res,send('upload image')
