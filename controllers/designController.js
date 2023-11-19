@@ -47,7 +47,7 @@ const deleteDesign = async(req, res) =>{
     throw new customError.NotFoundError(`No design with id : ${designID}`);
   }
 
-  await design.remove();
+  await design.deleteOne();
   res.status(StatusCodes.OK).json({ msg: 'Success! design removed.' });
 }
 const uploadImage = async(req, res) => {
