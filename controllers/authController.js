@@ -4,7 +4,7 @@ const customError = require('../errors')
 const jwt = require('jsonwebtoken')
 const { attachCookiesToResponse, createTokenUser } = require('../utils');
 
-
+// register
 const register = async(req, res) => {
     const {firstname, lastname, email, password} = req.body
 
@@ -26,7 +26,7 @@ const register = async(req, res) => {
 }
 
 
-
+// login
 const login = async(req, res) => {
     const {email, password} = req.body;
     if(!email || !password){
@@ -46,7 +46,7 @@ const login = async(req, res) => {
       res.status(StatusCodes.OK).json({ user: tokenUser });
 }
 
-
+// logout
 const logout = async (req, res) => {
     res.cookie('token', 'logout', {
       httpOnly: true,
