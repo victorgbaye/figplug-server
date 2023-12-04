@@ -21,8 +21,7 @@ const register = async(req, res) => {
     const user = await User.create({firstname, lastname, email, password, role  });
     const tokenUser = createTokenUser(user);
     attachCookiesToResponse({ res, user: tokenUser });
-
-    res.status(StatusCodes.CREATED).json({user:tokenUser})
+    res.status(StatusCodes.CREATED).json({ user:tokenUser })
 }
 
 
