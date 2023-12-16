@@ -20,6 +20,8 @@ const connectDB = require('./db/connect')
 const authRouter = require('./routes/authRoutes')
 const userRouter = require('./routes/userRoutes');
 const designRouter = require('./routes/designRoutes');
+const subscriptionRouter = require('./routes/subscription');
+
 
 
 //middleware
@@ -34,6 +36,7 @@ app.use(rateLimiter({
     max: 60
 }))
 
+app.use(express.static('public'));
 app.use(helmet());
 app.use(cors());
 app.use(xss());
@@ -52,6 +55,8 @@ app.get('/api/v1',(req, res)=>{
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/designs', designRouter);
+// app.use('/api/v1/subscription', subscriptionRouter);
+app.use('/stripe', subscriptionRouter);
 
 
 app.use(notFoundMiddleware)
