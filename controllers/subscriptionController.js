@@ -7,10 +7,6 @@ const YOUR_DOMAIN = 'https://thefigplug.onrender.com/';
 const createCheckoutSession = async (req, res) => {
   try {
     const { email } = req.body;
-    // const user = await User.findOne({_id:req.params.id}).select('-password')
-    // if (!user) {
-    //     throw new customError.NotFoundError(`No user with id : ${req.params.id}`);
-    //   }
 
     const session = await stripe.checkout.sessions.create({
         line_items: [
@@ -36,34 +32,3 @@ const createCheckoutSession = async (req, res) => {
 };
 module.exports ={createCheckoutSession}
 
-// const stripe = require('stripe')('YOUR_SECRET_KEY');
-
-// const createCheckoutSession = async (req, res) => {
-//   try {
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: 'usd',
-//             product_data: {
-//               name: 'Stubborn Attachments',
-//               images: ['https://i.imgur.com/EHyR2nP.png'],
-//             },
-//             unit_amount: 2000, // $20.00 in cents
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: 'payment',
-//       success_url: 'http://localhost:3000/success',
-//       cancel_url: 'http://localhost:3000/canceled',
-//     });
-
-//     res.json({ sessionId: session.id });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// module.exports = { createCheckoutSession };
