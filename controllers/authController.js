@@ -3,11 +3,14 @@ const { StatusCodes } = require('http-status-codes');
 const customError = require('../errors')
 const jwt = require('jsonwebtoken')
 const { attachCookiesToResponse, createTokenUser } = require('../utils');
+const sendMail2 = require('./sendMail');
+
+
+const emailContentPath = __dirname + '/Assets/WelcomeEmail.html';
 
 // register
 const register = async(req, res) => {
     const {firstname, lastname, email, password} = req.body
-
     const emailAlreadyExists = await User.findOne({email})
     if(emailAlreadyExists){
         throw new customError.BadRequestError('Email already exists')
@@ -21,6 +24,9 @@ const register = async(req, res) => {
     const user = await User.create({firstname, lastname, email, password, role  });
     const tokenUser = createTokenUser(user);
     attachCookiesToResponse({ res, user: tokenUser });
+  //  console.log(user.email);
+  //   sendMail2(user.email, `Welcome to theFigPlug, Let's Design Without Limits!`, emailContentPath)
+  //   console.log(user.email);
     res.status(StatusCodes.CREATED).json({ user:tokenUser })
 }
 
